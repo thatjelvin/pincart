@@ -162,7 +162,7 @@ For local testing, use `stripe listen --forward-to localhost:8000/stripe-webhook
 
 1. Push to GitHub
 2. Import repo in [vercel.com](https://vercel.com)
-3. Set **Root Directory** to `frontend`
+3. Set **Root Directory** to `pincart/frontend`
 4. Add environment variables in Vercel dashboard
 5. Deploy — auto-deploys on push
 
@@ -170,14 +170,20 @@ For local testing, use `stripe listen --forward-to localhost:8000/stripe-webhook
 
 **Railway:**
 1. Connect GitHub repo at [railway.app](https://railway.app)
-2. Set **Root Directory** to `backend`
+2. Set **Root Directory** to `pincart/backend`
 3. Set **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 4. Add environment variables
 5. Deploy
 
-**Render:**
+**Render (with Docker):**
 1. Create new **Web Service** at [render.com](https://render.com)
-2. Set **Root Directory** to `backend`
+2. Set **Root Directory** to `pincart/backend` (uses included `Dockerfile`)
+3. Add environment variables
+4. Deploy — or use the included `render.yaml` for one-click Blueprint deploy
+
+**Render (without Docker):**
+1. Create new **Web Service** at [render.com](https://render.com)
+2. Set **Root Directory** to `pincart/backend`
 3. Set **Build Command**: `pip install -r requirements.txt && playwright install chromium && playwright install-deps`
 4. Set **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 5. Add environment variables
@@ -189,6 +195,33 @@ For local testing, use `stripe listen --forward-to localhost:8000/stripe-webhook
 2. Update DNS at Name.com:
    - `A` record → Vercel IP
    - `CNAME` for `www` → `cname.vercel-dns.com`
+
+---
+
+## GitHub Student Developer Pack — Free Deployment
+
+If you have the [GitHub Student Developer Pack](https://education.github.com/pack), you can deploy this entire project for free using the included credits:
+
+| Service | Student Benefit | Use For |
+|---------|----------------|---------|
+| **Render** | Free tier web services | Backend API hosting |
+| **Railway** | $5/month credit | Alternative backend hosting |
+| **Vercel** | Hobby plan (free) | Frontend hosting |
+| **DigitalOcean** | $200 credit for 1 year | Full-stack hosting (App Platform or Droplet) |
+| **Microsoft Azure** | $100 credit | Cloud hosting alternative |
+| **Name.com** | 1 free domain for 1 year | Custom domain (e.g. `pincart.tech`) |
+| **.tech Domains** | 1 free `.tech` domain for 1 year | Alternative domain option |
+| **Stripe** | Waived transaction fees on first $1,000 | Payment processing |
+| **GitHub Actions** | 3,000 CI/CD minutes/month (Pro) | Automated build & test (CI workflow included) |
+
+### Recommended Free Stack
+
+1. **Frontend**: Deploy to **Vercel** (free Hobby plan, auto-deploy on push)
+2. **Backend**: Deploy to **Render** using the included `Dockerfile` and `render.yaml`
+3. **Database**: **Supabase** free tier (500 MB database, 50,000 monthly active users)
+4. **Domain**: Claim your free domain from **Name.com** or **.tech Domains**
+5. **Payments**: Set up **Stripe** in test mode, then switch to live when ready
+6. **CI/CD**: The included `.github/workflows/ci.yml` runs on every push via **GitHub Actions**
 
 ---
 
