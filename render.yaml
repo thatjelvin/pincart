@@ -1,0 +1,25 @@
+# Render Blueprint — deploy backend with one click
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: pincart-api
+    runtime: docker
+    rootDir: pincart/backend
+    plan: free
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_STARTER_PRICE_ID
+        sync: false
+      - key: STRIPE_PRO_PRICE_ID
+        sync: false
+      - key: FRONTEND_URL
+        sync: false

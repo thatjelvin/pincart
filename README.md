@@ -249,17 +249,25 @@ API documentation is available at `http://localhost:8000/docs` (Swagger UI).
 ### Backend Deployment (Alternative: Render)
 
 1. Create a new **Web Service** at [render.com](https://render.com)
-2. Set **Root Directory** to `pincart/backend`
-3. Set **Build Command**:
-   ```bash
-   pip install -r requirements.txt && playwright install chromium && playwright install-deps
-   ```
-4. Set **Start Command**:
-   ```bash
-   uvicorn main:app --host 0.0.0.0 --port $PORT
-   ```
-5. Add all environment variables
-6. Deploy
+2. Set **Root Directory** to `pincart/backend` (uses included `Dockerfile`)
+3. Add all environment variables
+4. Deploy — or use the included `render.yaml` for one-click Blueprint deploy
+
+### 🎓 GitHub Student Developer Pack — Free Deployment
+
+With the [GitHub Student Developer Pack](https://education.github.com/pack), you can run and deploy this entire project at no cost:
+
+| Service | Student Benefit | Use For |
+|---------|----------------|---------|
+| **Render** | Free tier web services | Backend API hosting |
+| **Railway** | $5/month credit | Alternative backend hosting |
+| **Vercel** | Hobby plan (free) | Frontend hosting |
+| **DigitalOcean** | $200 credit for 1 year | Full-stack hosting |
+| **Microsoft Azure** | $100 credit | Cloud hosting alternative |
+| **Name.com** | 1 free domain for 1 year | Custom domain |
+| **.tech Domains** | 1 free `.tech` domain for 1 year | Alternative domain |
+| **Stripe** | Waived fees on first $1,000 revenue | Payment processing |
+| **GitHub Actions** | 3,000 CI/CD minutes/month (Pro) | Automated builds (CI included) |
 
 ---
 
