@@ -1,0 +1,44 @@
+# PinCart AI — Sentry Project Configuration
+# Apply via Sentry CLI: sentry-cli projects update pincart --config monitoring/sentry/config.yml
+
+project: pincart
+organization: pincart-ai
+
+settings:
+  resolve_age: 720              # Auto-resolve after 30 days of inactivity
+  scrub_data: true              # Enable data scrubbing (PII)
+  scrub_defaults: true
+  sensitive_fields:
+    - password
+    - stripe_customer_id
+    - api_key
+    - secret_key
+  allowed_domains:
+    - "*.pincart.me"
+    - localhost
+
+alerts:
+  - name: High Error Rate
+    conditions:
+      - type: event_frequency
+        value: 50
+        interval: 1h
+    actions:
+      - type: email
+        targetType: team
+
+  - name: New Issue Alert
+    conditions:
+      - type: first_seen_event
+    actions:
+      - type: email
+        targetType: member
+
+  - name: Unhandled Exception Spike
+    conditions:
+      - type: event_frequency
+        value: 10
+        interval: 5m
+    actions:
+      - type: email
+        targetType: team

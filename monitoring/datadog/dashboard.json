@@ -1,0 +1,88 @@
+{
+  "title": "PinCart AI — FastAPI Metrics",
+  "description": "Real-time monitoring for the PinCart backend",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "Request Rate (rpm)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:trace.fastapi.request{service:pincart-backend}.as_rate()",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "P95 Latency (ms)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "p95:trace.fastapi.request.duration{service:pincart-backend}",
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Error Rate (5xx)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:trace.fastapi.request.errors{service:pincart-backend}.as_rate()",
+            "display_type": "bars",
+            "style": { "palette": "warm" }
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "title": "Top Endpoints by Hits",
+        "type": "toplist",
+        "requests": [
+          {
+            "q": "top(sum:trace.fastapi.request.hits{service:pincart-backend} by {resource_name}, 10, 'sum', 'desc')"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "Redis Cache Hit Rate",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:pincart.cache.hit{*}.as_count()/(sum:pincart.cache.hit{*}.as_count()+sum:pincart.cache.miss{*}.as_count())*100"
+          }
+        ],
+        "precision": 1
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "Rate-Limited Requests (429s)",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:trace.fastapi.request.hits{service:pincart-backend,http.status_code:429}.as_rate()",
+            "display_type": "bars",
+            "style": { "palette": "orange" }
+          }
+        ]
+      }
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
