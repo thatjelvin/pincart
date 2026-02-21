@@ -29,6 +29,8 @@ celery_app.conf.update(
 def scrape_pinterest_task(self, keyword: str) -> dict:
     """Run Pinterest scraping as a background Celery task.
 
+    Requires the default prefork/solo pool (not gevent/eventlet).
+
     Usage::
 
         result = scrape_pinterest_task.delay("home decor")
@@ -38,11 +40,7 @@ def scrape_pinterest_task(self, keyword: str) -> dict:
     from routers.discover import _scrape_pinterest
 
     try:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        results = loop.run_until_complete(_scrape_pinterest(keyword))
+        results = asyncio.run(_scrape_pinterest(keyword))
         return {"keyword": keyword, "count": len(results), "products": results}
     except Exception as exc:
         raise self.retry(exc=exc)
-    finally:
-        loop.close()
