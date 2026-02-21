@@ -41,7 +41,13 @@ PinCart AI is a full-stack SaaS platform that helps entrepreneurs launch dropshi
 ### Infrastructure
 - **Database & Auth:** Supabase (PostgreSQL)
 - **Payments:** Stripe Subscriptions
-- **Domain:** Name.com
+- **Caching:** Redis
+- **Task Queue:** Celery
+- **Secrets:** Doppler
+- **Monitoring:** Sentry + Datadog
+- **Email:** Mailgun
+- **Hosting:** DigitalOcean (backend) / Azure Static Web Apps (frontend)
+- **Domain:** Namecheap (.me)
 
 ---
 
@@ -287,6 +293,65 @@ API documentation is available at `http://localhost:8000/docs` (Swagger UI).
 - Product discovery
 - AI generation
 - Export interface
+
+---
+
+## 🐳 Docker Compose (Local Dev)
+
+Run the entire stack with one command:
+
+```bash
+docker compose up -d
+```
+
+This starts FastAPI, PostgreSQL, Redis, and a Celery worker. The backend is available at `http://localhost:8000`.
+
+---
+
+## 🔐 Doppler Secrets Management
+
+Instead of `.env` files, use [Doppler](https://www.doppler.com/) to manage secrets:
+
+```bash
+# Install CLI
+brew install dopplerhq/cli/doppler   # macOS
+# or: curl -Ls https://cli.doppler.com/install.sh | sh
+
+# Login & setup
+doppler login
+doppler setup   # select project: pincart, config: dev
+
+# Run with injected secrets
+doppler run -- uvicorn main:app --reload --port 8000
+```
+
+See [STUDENT_PACK_SETUP.md](STUDENT_PACK_SETUP.md) for full redemption guide.
+
+---
+
+## ☁️ Deployment (DigitalOcean + Azure)
+
+### Backend → DigitalOcean App Platform
+
+```bash
+doctl apps create --spec infrastructure/digitalocean-app.yaml
+```
+
+### Frontend → Azure Static Web Apps
+
+Connect your GitHub repo in the Azure Portal → Static Web Apps. Config: `infrastructure/azure-static-web-apps.yml`.
+
+### CI/CD
+
+GitHub Actions workflows (`.github/workflows/`) automatically test on PR and deploy on merge to `main`.
+
+---
+
+## 📊 Monitoring
+
+- **Sentry**: Error tracking for backend (FastAPI) and frontend (Next.js)
+- **Datadog**: Import `monitoring/datadog/dashboard.json` for real-time metrics
+- **Operations**: See [OPERATIONS.md](OPERATIONS.md) for the runbook
 
 ---
 

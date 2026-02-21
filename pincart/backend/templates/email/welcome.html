@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Welcome to PinCart AI</title>
+<style>
+body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f4f4f5}
+.wrap{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;margin-top:24px;margin-bottom:24px}
+.header{background:#1a1a2e;padding:32px;text-align:center;color:#fff}
+.header h1{margin:0;font-size:24px}
+.body{padding:32px}
+.body h2{color:#1a1a2e;margin-top:0}
+.body p{color:#374151;line-height:1.6}
+.btn{display:inline-block;background:#6366f1;color:#fff;padding:12px 32px;border-radius:6px;text-decoration:none;font-weight:600;margin-top:16px}
+.steps{background:#f9fafb;border-radius:6px;padding:20px;margin:20px 0}
+.steps li{color:#374151;margin-bottom:8px}
+.footer{text-align:center;padding:24px;color:#9ca3af;font-size:13px}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header"><h1>🛒 PinCart AI</h1></div>
+  <div class="body">
+    <h2>Welcome aboard, {{name}}!</h2>
+    <p>You just signed up for PinCart AI — the fastest way to discover trending Pinterest products and launch a dropshipping store.</p>
+    <div class="steps">
+      <strong>Get started in 3 steps:</strong>
+      <ol>
+        <li>Enter a niche keyword on the <strong>Discover</strong> tab</li>
+        <li>Click <strong>Generate Page</strong> to get AI product copy</li>
+        <li>Hit <strong>Export</strong> and import the CSV into Shopify</li>
+      </ol>
+    </div>
+    <a class="btn" href="{{dashboard_url}}">Go to Dashboard →</a>
+    <p style="margin-top:24px;font-size:14px;color:#6b7280">Questions? Just reply to this email — we read every message.</p>
+  </div>
+  <div class="footer">&copy; {{year}} PinCart AI. All rights reserved.</div>
+</div>
+</body></html>
